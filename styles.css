@@ -1,0 +1,104 @@
+
+
+
+.custom-list-setting .setting-item-info {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.custom-list-setting .setting-item-info ul {
+    padding-inline-start: 30px;
+}
+
+.custom-list-setting .setting-item-info input {
+    pointer-events: none;
+}
+
+.custom-list-setting ul {
+    margin: 0;
+}
+
+.custom-list-setting textarea {
+    width: 100%;
+}
+
+
+.custom-list-setting input[type="text"] {
+    max-width: 6em;
+}
+
+.custom-list-setting .setting-item-control button {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+
+
+
+
+.image-suggestion-item.svg-icon  {
+  display: inline-block;
+}
+
+
+.menu-item-custom-color svg {
+  background: conic-gradient(
+    var(--color-red), 
+    var(--color-orange), 
+    var(--color-yellow), 
+    var(--color-green), 
+    var(--color-cyan),
+    var(--color-blue), 
+    var(--color-purple),
+    var(--color-red)
+  );
+  color: transparent;
+}
+
+
+.color-picker-modal {
+  width: fit-content;
+}
+
+.color-picker-modal .setting-item-info {
+  display: none;
+}
+
+
+.color-picker-modal input {
+  height: 80px;
+  width: 80px;
+}
+
+.color-picker-modal input::-webkit-color-swatch  {
+border-radius: 50%;
+height: 100% !important;
+}
+
+
+.custom-list-line {
+    border-radius: 4px;
+}
+
+.custom-list-line-reading {
+    padding: var(--list-spacing) 6px;
+}
+
+.custom-list-icon {
+    vertical-align: middle;
+    --icon-size: 1em;
+    --icon-stroke: 2px;
+}
+
+.custom-list-line-setting {
+    padding: 4px 8px;
+}
+
+.image-suggestion-item.svg-icon:empty:after {
+    content: "";
+    height: var(--icon-size);
+    width: var(--icon-size);
+    display: inline-block;
+}
