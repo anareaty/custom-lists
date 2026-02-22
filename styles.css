@@ -82,20 +82,22 @@ height: 100% !important;
     border-radius: 4px;
 }
 
-.custom-list-line-reading {
+.custom-list-line-reading.bg-colored {
     padding: var(--list-spacing) 6px;
+    transform: translateX(-6px);
 }
 
 .custom-list-icon {
     line-height: 1;
     --icon-stroke: 2px !important;
     vertical-align: middle;
+    margin-right: 2px;
 }
 
 
 .custom-list-icon svg {
     display: inline-block;
-    vertical-align: middle;
+
 }
 
 
@@ -108,5 +110,10 @@ height: 100% !important;
     content: "";
     height: var(--icon-size);
     width: var(--icon-size);
+    display: inline-block;
+}
+
+
+li > p {
     display: inline-block;
 }

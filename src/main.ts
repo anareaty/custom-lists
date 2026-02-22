@@ -31,6 +31,8 @@ export default class CustomLists extends Plugin {
 		let items = this.settings.lists
 		let listContent = list.find("p")
 
+		if (list.classList.contains("task-list-item")) return
+
 		if (!listContent) {
 			let listBareNode = [...list.childNodes].find(node => node.nodeType === Node.TEXT_NODE)
 			if (listBareNode) {
@@ -52,6 +54,9 @@ export default class CustomLists extends Plugin {
 				"color": "",
 				"background-color": "",
 			})
+
+			listContent.className = ""
+			list.removeAttribute("data-cls")
 			
 			let listTextEl = listContent.firstChild
 			if (listTextEl?.nodeType != Node.TEXT_NODE) return
@@ -80,11 +85,24 @@ export default class CustomLists extends Plugin {
 
 						listContent.classList.add("custom-list-line")
 						listContent.classList.add("custom-list-line-reading")
+						
+
+						if (listObj.customClass) {
+							listContent.classList.add(listObj.customClass)
+							list.setAttribute("data-cls", listObj.customClass)
+						}
+
+
+						if (listObj.background) {
+							listContent.classList.add("bg-colored")
+						}
 
 						listContent.setCssProps({
 							"color": listObj.color,
 							"background-color": listObj.background,
 						})
+
+						
 						break
 					}
 				}
