@@ -30,13 +30,13 @@ export const createColorMenu = (plugin: PrettyPropertiesPlugin, e: MouseEvent, l
                 listColor = ""
             } else if (color == "accent") {
                 if (type == "background") {
-                    listColor = "hsla(var(--color-accent-hsl), 0.15)"
+                    listColor = "hsla(var(--color-accent-hsl), 0.1)"
                 } else {
                     listColor = "var(--interactive-accent)"
                 }
             } else {
                 if (type == "background") {
-                    listColor = "rgba(var(--color-" + color + "-rgb), 0.15)"
+                    listColor = "rgba(var(--color-" + color + "-rgb), 0.1)"
                 } else {
                     listColor = "rgb(var(--color-" + color + "-rgb))"
                 }
