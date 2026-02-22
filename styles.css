@@ -87,10 +87,18 @@ height: 100% !important;
 }
 
 .custom-list-icon {
+    line-height: 1;
+    --icon-stroke: 2px !important;
     vertical-align: middle;
-    --icon-size: 1em;
-    --icon-stroke: 2px;
 }
+
+
+.custom-list-icon svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
 
 .custom-list-line-setting {
     padding: 4px 8px;
