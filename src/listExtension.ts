@@ -11,7 +11,7 @@ ViewPlugin,
 ViewUpdate,
 WidgetType
 } from '@codemirror/view';
-import { setIcon, editorLivePreviewField } from 'obsidian';
+import { setIcon, editorLivePreviewField, Menu } from 'obsidian';
 
 import CustomLists from 'src/main';
 
@@ -19,17 +19,103 @@ import CustomLists from 'src/main';
 export const registerCustomListExtension = (plugin: CustomLists) => {
     class IconWidget extends WidgetType {
         listObj: any
-        constructor(listObj: any) {
+        from: number
+        constructor(listObj: any, from: number) {
             super()
             this.listObj = listObj
+            this.from = from
         }
         toDOM(view: EditorView): HTMLElement {
             let iconSpan = document.createElement('span');
             setIcon(iconSpan, this.listObj.iconId)
             iconSpan.classList.add("custom-list-icon")
+            iconSpan.setAttribute("data-symbol", this.listObj.symbol)
             iconSpan.setCssProps({
                 "color": this.listObj.iconColor
             })
+
+            iconSpan.oncontextmenu = (e) => {
+              e.preventDefault()
+              let iconMenu = new Menu()
+              
+              let lists = plugin.settings.lists
+      
+              
+              for (let list of lists) {
+                iconMenu.addItem(item => {
+                  item
+                  .setChecked(this.listObj.symbol == list.symbol)
+                  .setTitle(list.name || list.symbol)
+                  .setIcon(list.iconId)
+                  //@ts-ignore
+                  item.iconEl.setCssProps({
+                    "color": list.iconColor
+                  })
+                  //@ts-ignore
+                  item.dom.setCssProps({
+                    "color": list.color,
+                    "background-color": list.background
+                  })
+                  //@ts-ignore
+                  item.dom.classList.add("custom-list-menu-item")
+      
+                  item.onClick(() => {
+                    let transaction = view.state.update({
+                      changes: [
+                        {from: this.from, to: this.from + this.listObj.symbol.length}, 
+                        {from: this.from, insert: list.symbol}]
+                    })
+                    view.dispatch(transaction)
+                  })
+      
+                  return item
+                })
+              }
+
+
+              iconMenu.addItem(item => item
+                .setTitle("Задача")
+                .setIcon("circle")
+                .onClick(() => {
+                  let transaction = view.state.update({
+                      changes: [
+                        {from: this.from, to: this.from + this.listObj.symbol.length}, 
+                        {from: this.from, insert: "[ ]"}]
+                    })
+                    view.dispatch(transaction)
+                })
+              )
+		
+
+              iconMenu.addItem(item => item
+                .setTitle("Список")
+                .setIcon("dot")
+                .onClick(() => {
+                  let transaction = view.state.update({
+                      changes: [
+                        {from: this.from, to: this.from + this.listObj.symbol.length + 1}, 
+                        {from: this.from, insert: ""}]
+                  })
+                  view.dispatch(transaction)
+                })
+              )
+		
+
+              iconMenu.addItem(item => item
+                .setTitle("ОЧИСТИТЬ")
+                .setIcon("x")
+                .onClick(() => {
+                  let transaction = view.state.update({
+                      changes: [
+                        {from: this.from - 2, to: this.from + this.listObj.symbol.length + 1}, 
+                        {from: this.from - 2, insert: ""}]
+                  })
+                  view.dispatch(transaction)
+                })
+              )
+		
+              iconMenu.showAtMouseEvent(e)
+            }
             return iconSpan;
         }
     }
@@ -86,7 +172,7 @@ export const registerCustomListExtension = (plugin: CustomLists) => {
                       node.from,
                       node.from + symbol.length,
                       Decoration.replace({
-                        widget: new IconWidget(listObj),
+                        widget: new IconWidget(listObj, node.from),
                       })
                     );
                   }

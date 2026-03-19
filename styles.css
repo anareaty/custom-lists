@@ -82,6 +82,8 @@ height: 100% !important;
     border-radius: 4px;
 }
 
+
+
 .custom-list-line-reading.bg-colored {
     padding: var(--list-spacing) 6px;
     transform: translateX(-6px);
@@ -112,4 +114,13 @@ height: 100% !important;
     width: var(--icon-size);
     display: inline-block;
 }
+
+.custom-list-menu-item:hover {
+    background-color: var(--background-modifier-hover) !important;
+}
+
+.custom-list-menu-item {
+    margin: 1px
+}
+
 
